@@ -11,10 +11,18 @@
             android:title="Cart"
             android:icon="@drawable/ic_cart"/>
         <item
+            android:id="@+id/my_order"
+            android:title="Order"
+            android:icon="@drawable/order"
+            >
+
+        </item>
+        <item
             android:id="@+id/log_out"
             android:title="Log Out"
             android:icon="@drawable/ic_logout"
             />
+
     </group>
 
 </menu>

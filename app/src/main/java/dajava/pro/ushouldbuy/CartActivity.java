@@ -64,7 +64,7 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
     private TextView tvSubtotalAmount, totalAmount, tvDeliveryChargeAmount, buttonOrder;
     private  Bundle bundle = new Bundle();
     private List<Item> itemsInCartList;
-
+    private User user;
     private Spinner spinnerPayment;
 
     @Override
@@ -99,7 +99,7 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        User user = (User) getIntent().getExtras().get("object_user");
+        user = (User) getIntent().getExtras().get("object_user");
         usernameLabel.setText(user.getFullname());
         phoneLabel.setText(user.getPhone());
         bundle=new Bundle();
@@ -142,13 +142,20 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
         reference.child("orders").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                long count = snapshot.getChildrenCount();
+                Long count = snapshot.child(user.getPhone()).getChildrenCount();
                 count++;
                 reference.child("orders").child(phone).child(String.valueOf(count)).child("Phone").setValue(phone);
                 reference.child("orders").child(phone).child(String.valueOf(count)).child("Name").setValue(username);
                 reference.child("orders").child(phone).child(String.valueOf(count)).child("City").setValue(city);
-                for (Item m : itemList) {
-                    reference.child("orders").child(phone).child(String.valueOf(count)).child("drinks").child(m.getName()).setValue(m.getTotalInCart());
+                for (int i = 0; i < itemList.size(); i++) {
+                    reference.child("orders").child(phone).child(String.valueOf(count)).child("drinks").
+                            child(String.valueOf(i + 1)).child("name").setValue(itemList.get(i).getName());
+                    reference.child("orders").child(phone).child(String.valueOf(count)).child("drinks").
+                            child(String.valueOf(i + 1)).child("price").setValue(itemList.get(i).getPrice());
+                    reference.child("orders").child(phone).child(String.valueOf(count)).child("drinks").
+                            child(String.valueOf(i + 1)).child("quantity").setValue(itemList.get(i).getTotalInCart());
+                    reference.child("orders").child(phone).child(String.valueOf(count)).child("drinks").
+                            child(String.valueOf(i + 1)).child("image").setValue(itemList.get(i).getPicId());
                 }
                 reference.child("orders").child(phone).child(String.valueOf(count)).child("Payment method").setValue(paymentmethod);
                 reference.child("orders").child(phone).child(String.valueOf(count)).child("Total Cost").setValue(total);
@@ -236,9 +243,14 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.cart:
                 break;
-            case R.id.log_out:
-                Intent intent2 = new Intent(CartActivity.this, LoginActivity.class);
+            case R.id.my_order:
+                Intent intent2 = new Intent(getApplicationContext(), WelcomeActivity.class);
+                intent2.putExtra("object_user", user);
                 startActivity(intent2);
+                break;
+            case R.id.log_out:
+                Intent intent3 = new Intent(CartActivity.this, LoginActivity.class);
+                startActivity(intent3);
                 break;
 
         }

@@ -3,7 +3,7 @@ package dajava.pro.ushouldbuy.model;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    private String id,email,phone,fullname;
+    private String id,email,phone,fullname, image, password;
 
     public String getEmail() {
         return email;
@@ -37,7 +37,15 @@ public class User implements Serializable {
         this.fullname = fullname;
     }
 
-    public User(String id,String email, String phone, String fullname) {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public User(String id, String email, String phone, String fullname) {
         this.email = email;
         this.phone = phone;
         this.fullname = fullname;
@@ -54,6 +62,15 @@ public class User implements Serializable {
         this.email = email;
         this.phone = phone;
     }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public User(){
 
     }

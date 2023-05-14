@@ -34,18 +34,46 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         initView();
         myViewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager(),getLifecycle());
-        myViewPagerAdapter.addFragment(new FragmentAds());
-        myViewPagerAdapter.addFragment(new FragmentAds1());
-        myViewPagerAdapter.addFragment(new FragmentWelcome());
+        User user = (User) getIntent().getSerializableExtra("object_user");
+        FragmentAds adsFragment = new FragmentAds();
+        Bundle adsBundle = new Bundle();
+        adsBundle.putSerializable("object_user", user);
+        adsFragment.setArguments(adsBundle);
+
+        FragmentAds1 ads1Fragment = new FragmentAds1();
+        Bundle ads1Bundle = new Bundle();
+        ads1Bundle.putSerializable("object_user", user);
+        ads1Fragment.setArguments(ads1Bundle);
+
+        FragmentWelcome welcomeFragment = new FragmentWelcome();
+        Bundle welcomeBundle = new Bundle();
+        welcomeBundle.putSerializable("object_user", user);
+        welcomeFragment.setArguments(welcomeBundle);
+
+        myViewPagerAdapter.addFragment(adsFragment);
+        myViewPagerAdapter.addFragment(ads1Fragment);
+        myViewPagerAdapter.addFragment(welcomeFragment);
+
+        viewPager2.setAdapter(myViewPagerAdapter);
+
         viewPager2.setAdapter(myViewPagerAdapter);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                bundle.putSerializable("object_user",user);
                 switch (item.getItemId()){
                     case R.id.menu_item_ads:
+                        bundle = new Bundle();
+                        bundle.putSerializable("object_user", user);
+                        FragmentAds adsFragment = new FragmentAds();
+                        adsFragment.setArguments(bundle);
                         viewPager2.setCurrentItem(0,false);
                         break;
                     case R.id.menu_item_ads1:
+                        bundle = new Bundle();
+                        bundle.putSerializable("object_user", user);
+                        FragmentAds1 adsFragment1 = new FragmentAds1();
+                        adsFragment1.setArguments(bundle);
                         viewPager2.setCurrentItem(1, false);
                         break;
                     case R.id.menu_item_welcome:
@@ -72,7 +100,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
             }
         });
-        User user = (User) getIntent().getExtras().get("object_user");
         bundle.putSerializable("object_user",user);
 
         fab.setOnClickListener(new View.OnClickListener() {
