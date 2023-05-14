@@ -142,14 +142,16 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
         reference.child("orders").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                reference.child("orders").child(phone).child("Phone").setValue(phone);
-                reference.child("orders").child(phone).child("Name").setValue(username);
-                reference.child("orders").child(phone).child("City").setValue(city);
+                long count = snapshot.getChildrenCount();
+                count++;
+                reference.child("orders").child(phone).child(String.valueOf(count)).child("Phone").setValue(phone);
+                reference.child("orders").child(phone).child(String.valueOf(count)).child("Name").setValue(username);
+                reference.child("orders").child(phone).child(String.valueOf(count)).child("City").setValue(city);
                 for (Item m : itemList) {
-                    reference.child("orders").child(phone).child("drinks").child(m.getName()).setValue(m.getTotalInCart());
+                    reference.child("orders").child(phone).child(String.valueOf(count)).child("drinks").child(m.getName()).setValue(m.getTotalInCart());
                 }
-                reference.child("orders").child(phone).child("Payment method").setValue(paymentmethod);
-                reference.child("orders ").child(phone).child("Total Cost").setValue(total);
+                reference.child("orders").child(phone).child(String.valueOf(count)).child("Payment method").setValue(paymentmethod);
+                reference.child("orders").child(phone).child(String.valueOf(count)).child("Total Cost").setValue(total);
 
             }
 

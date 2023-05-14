@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import dajava.pro.ushouldbuy.R;
 
-public class FragmentAds extends Fragment {
+public class OrderList extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
