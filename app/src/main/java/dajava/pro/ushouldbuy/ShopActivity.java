@@ -53,6 +53,7 @@ public class ShopActivity extends AppCompatActivity implements ItemListAdapter.I
     View header;
     TextView phoneLabel,usernameLabel;
     private Bundle bundle;
+    private User user;
     DatabaseReference reference= FirebaseDatabase.
             getInstance("https://amplified-coder-384315-default-rtdb.firebaseio.com/").
             getReference("my_shop");
@@ -74,7 +75,7 @@ public class ShopActivity extends AppCompatActivity implements ItemListAdapter.I
         bg = findViewById(R.id.restaurant_bg);
 //        bg.setImageResource(shop.getShopBg());
 //        picasso.load(shop.getShopBg()).into(bg);
-        User user = (User) getIntent().getExtras().get("object_user");
+        user = (User) getIntent().getExtras().get("object_user");
         phoneLabel.setText(user.getPhone());
         usernameLabel.setText(user.getFullname());
         bundle=new Bundle();
@@ -148,16 +149,21 @@ public class ShopActivity extends AppCompatActivity implements ItemListAdapter.I
 
     @Override
     public void onAddToCartClick(Item menu) {
-        if(itemsInCartList == null) {
-            itemsInCartList = new ArrayList<>();
-        }
-        itemsInCartList.add(menu);
-        totalItemInCart = 0;
+        Intent intent1=new Intent(ShopActivity.this,DetailProduct.class);
+        intent1.putExtra("object_user", user);
+        intent1.putExtra("item", (Serializable) menu);
+        startActivity(intent1);
 
-        for(Item m : itemsInCartList) {
-            totalItemInCart = totalItemInCart + m.getTotalInCart();
-        }
-        buttonCheckout.setText("Checkout (" +totalItemInCart +") items");
+//        if(itemsInCartList == null) {
+//            itemsInCartList = new ArrayList<>();
+//        }
+//        itemsInCartList.add(menu);
+//        totalItemInCart = 0;
+//
+//        for(Item m : itemsInCartList) {
+//            totalItemInCart = totalItemInCart + m.getTotalInCart();
+//        }
+//        buttonCheckout.setText("Checkout (" +totalItemInCart +") items");
 
     }
 
