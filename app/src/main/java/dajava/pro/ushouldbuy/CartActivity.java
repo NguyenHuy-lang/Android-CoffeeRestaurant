@@ -114,10 +114,8 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
         //upload bill to firebase
         buttonOrder = findViewById(R.id.buttonPlaceYourOrder);
         buttonOrder.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 onPlaceOrderButtonClick(itemsInCartList);
             }
         });

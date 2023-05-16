@@ -38,7 +38,7 @@
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailProduct"
+            android:name=".DetailProductActivity"
             android:exported="false" />
     </application>
 

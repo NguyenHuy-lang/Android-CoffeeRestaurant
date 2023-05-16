@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 
-public class Item implements Parcelable , Serializable {
+public class Item implements Parcelable , Serializable , Cloneable{
     private static final long serialVersionUID = 1L;
     private String name,description;
     private String picId;
@@ -99,6 +99,10 @@ public class Item implements Parcelable , Serializable {
         dest.writeFloat(price);
         dest.writeString(picId);
         dest.writeInt(totalInCart);
+    }
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     public Item() {

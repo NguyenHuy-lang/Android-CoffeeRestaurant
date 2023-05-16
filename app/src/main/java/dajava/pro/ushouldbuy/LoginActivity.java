@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                         final String getPassword=snapshot.child(phone).child("password").getValue(String.class);
                         final String getName = snapshot.child(phone).child("fullname").getValue(String.class);
                         final String getEmail = snapshot.child(phone).child("email").getValue(String.class);
-                        final String getImage = snapshot.child(phone).child("password").getValue(String.class);
+                        final String getImage = snapshot.child(phone).child("image").getValue(String.class);
                         if(getPassword.equals(pass1)){
                             User us=new User(getEmail,getPhone,getName);
                             us.setPassword(pass1);
