@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 public class Item implements Parcelable , Serializable , Cloneable{
     private static final long serialVersionUID = 1L;
+    private Integer id;
     private String name,description;
     private String picId;
     private int totalInCart;
@@ -28,7 +29,7 @@ public class Item implements Parcelable , Serializable , Cloneable{
         name=in.readString();
         price= in.readFloat();
         picId=in.readString();
-
+        id = in.readInt();
         totalInCart=in.readInt();
     }
 
@@ -86,7 +87,13 @@ public class Item implements Parcelable , Serializable , Cloneable{
         this.price = price;
     }
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     @Override
     public int describeContents() {
@@ -99,6 +106,7 @@ public class Item implements Parcelable , Serializable , Cloneable{
         dest.writeFloat(price);
         dest.writeString(picId);
         dest.writeInt(totalInCart);
+        dest.writeInt(id);
     }
     @Override
     public Object clone() throws CloneNotSupportedException {

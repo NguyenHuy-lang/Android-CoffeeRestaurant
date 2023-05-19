@@ -4,6 +4,7 @@ public class Comment {
     private User user;
     private String content;
     private Integer rating;
+    private String dateTime;
 
     public Comment() {
     }
@@ -36,5 +37,13 @@ public class Comment {
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 }

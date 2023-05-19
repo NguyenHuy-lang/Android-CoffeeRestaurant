@@ -40,6 +40,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         holder.nameCusTextView.setText(comment.getUser().getFullname());
         holder.ratingComment.setRating(comment.getRating());
         holder.contentCommentTextView.setText(comment.getContent());
+        holder.commentDateTimeTextView.setText(comment.getDateTime());
     }
 
     @Override
@@ -52,12 +53,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         public TextView nameCusTextView;
         public TextView contentCommentTextView;
         public RatingBar ratingComment;
+        public TextView commentDateTimeTextView;
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
             imageCusView = itemView.findViewById(R.id.item_image_customer_view);
             nameCusTextView = itemView.findViewById(R.id.name_customer_text_view);
             contentCommentTextView = itemView.findViewById(R.id.content_comment_text_view);
             ratingComment = itemView.findViewById(R.id.vote_rating_bar);
+            commentDateTimeTextView = itemView.findViewById(R.id.time_comment_text_view);
         }
     }
 

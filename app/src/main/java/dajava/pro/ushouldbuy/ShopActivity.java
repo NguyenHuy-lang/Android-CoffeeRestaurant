@@ -86,12 +86,15 @@ public class ShopActivity extends AppCompatActivity implements ItemListAdapter.I
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot itemSnapshot : snapshot.child("Drinks").getChildren()) {
                     // Retrieve the name, picture ID, and price for this item
+                    Integer id = itemSnapshot.child("id").getValue(Integer.class);
                     String itemName = itemSnapshot.child("name").getValue(String.class);
                     String itemPicId = itemSnapshot.child("image").getValue(String.class);
                     float itemPrice = itemSnapshot.child("price").getValue(Float.class);
                     System.out.println(itemName + " " + itemPicId + " " + itemPrice);
                     // Create a new Item object and add it to the list for this shop
-                    itemList.add(new Item(itemName, itemPicId, itemPrice));
+                    Item item = new Item(itemName, itemPicId, itemPrice);
+                    item.setId(id);
+                    itemList.add(item);
                 }
                 RecyclerView recyclerView =  findViewById(R.id.recycler_view_menu);
                 recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));

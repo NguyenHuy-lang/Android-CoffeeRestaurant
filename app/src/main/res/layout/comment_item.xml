@@ -17,6 +17,7 @@
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:text="NguyenHuy"
+            android:textStyle="bold"
             android:layout_height="wrap_content">
         </TextView>
     </LinearLayout>
@@ -28,8 +29,17 @@
             android:id="@+id/content_comment_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:layout_margin="10dp"
             android:text="dep">
+        </TextView>
+        <TextView
+            android:id="@+id/time_comment_text_view"
+            android:text="time"
+            android:layout_margin="10dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         </TextView>
         <RatingBar
 
