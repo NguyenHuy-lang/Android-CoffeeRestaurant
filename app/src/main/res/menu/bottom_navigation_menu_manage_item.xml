@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  
+    <item android:id="@+id/menu_item_manage_item"
+        android:icon="@drawable/baseline_ads_click_24"
+        android:title="" />
+    <item android:id="@+id/menu_item_manage_order"
+        android:icon="@drawable/baseline_ads_click_24"
+        android:title="" />
+
 </menu>

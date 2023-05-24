@@ -1,14 +1,15 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+
 }
 
 android {
-    namespace 'dajava.pro.ushouldbuy'
+    namespace 'com.example.mycoffee'
     compileSdk 33
 
     defaultConfig {
-        applicationId "dajava.pro.ushouldbuy"
+        applicationId "com.example.mycoffee"
         minSdk 31
         targetSdk 33
         versionCode 1
@@ -38,12 +39,13 @@ dependencies {
     implementation 'org.parceler:parceler-api:1.1.12'
     implementation 'com.google.firebase:firebase-auth:21.1.0'
     implementation 'com.google.firebase:firebase-core:20.0.0'
-
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3'
     implementation 'com.squareup.picasso:picasso:2.8'
     annotationProcessor 'org.parceler:parceler:1.1.12'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     implementation 'com.google.firebase:firebase-storage:20.0.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

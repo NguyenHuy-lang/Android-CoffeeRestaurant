@@ -66,25 +66,13 @@
                 android:hint="Enter your address"
                 />
 
-            <EditText android:id="@+id/inputCity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/inputAddress"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="05dp"
-                android:layout_marginBottom="05dp"
-                android:hint="Enter your city"
-                />
             <Spinner
                 android:id="@+id/spinerPaymentmethod"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inputCity"
+                app:layout_constraintTop_toBottomOf="@+id/inputAddress"
                 android:layout_margin="10dp"
                 android:text="Payment method"
                 android:textSize="15sp"
@@ -104,7 +92,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cartItemsRecyclerView"
                 android:layout_width="wrap_content"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTotalItems"

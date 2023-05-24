@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/bg">
 
     <EditText
         android:id="@+id/ePhone"
@@ -118,6 +118,7 @@
         android:layout_height="wrap_content"
         android:text="Already have an account?"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/ePassword"
         app:layout_constraintHorizontal_bias=".3"

@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-  
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/buy_from_product_detail"
+            android:title="Shopping"
+            android:icon="@drawable/buy"/>
+        <item
+            android:id="@+id/cart_from_product_detail"
+            android:title="Cart"
+            android:icon="@drawable/ic_cart"/>
+        <item
+            android:id="@+id/log_out_from_product_detail"
+            android:title="Log Out"
+            android:icon="@drawable/ic_logout"
+            />
+
+    </group>
+
 </menu>

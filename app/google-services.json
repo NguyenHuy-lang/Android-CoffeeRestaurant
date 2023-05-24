@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "485935183797",
-    "project_id": "ecomdb-273f5",
-    "storage_bucket": "ecomdb-273f5.appspot.com"
+    "project_number": "447565573270",
+    "firebase_url": "https://amplified-coder-384315-default-rtdb.firebaseio.com",
+    "project_id": "amplified-coder-384315",
+    "storage_bucket": "amplified-coder-384315.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:485935183797:android:2bffb32df46530b91d0bfc",
+        "mobilesdk_app_id": "1:447565573270:android:2fb7b3722e8ed2fd4766b7",
         "android_client_info": {
-          "package_name": "dajava.pro.ushouldbuy"
+          "package_name": "com.example.mycoffee"
         }
       },
       "oauth_client": [
         {
-          "client_id": "485935183797-ra1lrbsvj5ite0k7hk8h7v6egarp2ubi.apps.googleusercontent.com",
+          "client_id": "447565573270-lcqfgif56gshqbft3a0ja9l5p0jqeuup.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAHUeA-v4_FdBvynNsRgMDw_Iu1OfsxU6E"
+          "current_key": "AIzaSyBBChBBYGFepBAkLpD4IjsGsa8j1yttbPQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "485935183797-ra1lrbsvj5ite0k7hk8h7v6egarp2ubi.apps.googleusercontent.com",
+              "client_id": "447565573270-lcqfgif56gshqbft3a0ja9l5p0jqeuup.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
