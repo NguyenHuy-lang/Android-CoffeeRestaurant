@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mycoffee.adapter.ItemInCartAdapter;
 import com.example.mycoffee.model.Item;
 import com.example.mycoffee.model.User;
+import com.example.mycoffee.utils.NotificationUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -74,6 +75,7 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
     private Spinner spinnerPayment;
     private CircleImageView imageUser;
     Picasso picasso = Picasso.get();
+    private Long orderId;
 
     //paypal
     String selectedPayment;
@@ -194,6 +196,7 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Long count = snapshot.child(user.getPhone()).getChildrenCount();
                 count++;
+                orderId = count;
                 reference.child("orders").child(phone).child(String.valueOf(count)).child("Phone").setValue(phone);
                 reference.child("orders").child(phone).child(String.valueOf(count)).child("Name").setValue(username);
                 reference.child("orders").child(phone).child(String.valueOf(count)).child("City").setValue(address);
@@ -212,9 +215,11 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
                 reference.child("orders").child(phone).child(String.valueOf(count)).child("Date").setValue(date);
                 reference.child("orders").child(phone).child(String.valueOf(count)).child("Status").setValue("Pending");
                 reference.child("orders").child(phone).child(String.valueOf(count)).child("id").setValue(count);
+                reference.child("orders").child(phone).child(String.valueOf(count)).child("notify").setValue(true);
                 Toast.makeText(getApplicationContext(), "You have successfully placed your order, " +
                         "your order will be approved by admin later", Toast.LENGTH_LONG).show();
-
+                NotificationUtils.showNotification(getApplicationContext(), "AlertOrder",
+                        "Success order", WelcomeActivity.class, user, String.valueOf(orderId));
             }
 
 
@@ -223,38 +228,36 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
+
+
         //start success activity..
-        if (Build.VERSION.SDK_INT >= 24) {
-            System.out.println("runnnnnnnnnnnnnnnnnnnnnnnnng notify");
-            if (ContextCompat.checkSelfPermission(CartActivity.this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                System.out.println("runnnnnnnnnnnnnnnnnnnnnnnnng notify error ?");
-                ActivityCompat.requestPermissions(CartActivity.this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 101);
+//        if (Build.VERSION.SDK_INT >= 24) {
+//            if (ContextCompat.checkSelfPermission(CartActivity.this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+//                ActivityCompat.requestPermissions(CartActivity.this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 101);
+//            }
+//            String newMessenger = "Dat hang thanh cong";
+//            // Create the notification payload
+//            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "default");
+//            builder.setSmallIcon(R.drawable.ic_notification);
+//            builder.setContentTitle("Order ");
+//            builder.setContentText(newMessenger);
+//            builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+//            builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+//
+//            // Create the notification channel (required for Android Oreo and above)
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                NotificationChannel channel = new NotificationChannel("default", "Default", NotificationManager.IMPORTANCE_DEFAULT);
+//                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+//                notificationManager.createNotificationChannel(channel);
+//            }
+//            // Send the notification
+//            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+//            notificationManager.notify(0, builder.build());
+//        }
 
-            }
-            System.out.println("runnnnnnnnnnnnnnnnnnnnnnnnng notify");
-            String newMessenger = "Dat hang thanh cong";
-            // Create the notification payload
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "default");
-            builder.setSmallIcon(R.drawable.ic_notification);
-            builder.setContentTitle("Order ");
-            builder.setContentText(newMessenger);
-            builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-            builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-
-            // Create the notification channel (required for Android Oreo and above)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                NotificationChannel channel = new NotificationChannel("default", "Default", NotificationManager.IMPORTANCE_DEFAULT);
-                NotificationManager notificationManager = getSystemService(NotificationManager.class);
-                notificationManager.createNotificationChannel(channel);
-            }
-            // Send the notification
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
-            notificationManager.notify(0, builder.build());
-        }
-
-        Intent i = new Intent(CartActivity.this, ShopActivity.class);
-        i.putExtras(bundle);
-        startActivity(i);
+//        Intent i = new Intent(CartActivity.this, ShopActivity.class);
+//        i.putExtras(bundle);
+//        startActivity(i);
     }
 
     private void initRecyclerView(List<Item> itemList) {

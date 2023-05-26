@@ -29,7 +29,8 @@ import java.util.List;
 public class FragmentStatisticOrderUser extends Fragment {
     private RecyclerView mRecyclerView;
     private OrderAdapter mOrderAdapter;
-
+    List<Long> idOrder = new ArrayList<>();
+    List<Order> orderList = new ArrayList<>();
     private  Bundle bundle = new Bundle();
 
     DatabaseReference reference= FirebaseDatabase.
@@ -45,8 +46,17 @@ public class FragmentStatisticOrderUser extends Fragment {
         mRecyclerView = view.findViewById(R.id.order_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         User user = (User) getArguments().get("object_user");
-        List<Order> orderList = new ArrayList<>();
-
+        String sequenceId = (String) getArguments().get("order_ids");
+        String[] numbersArray = sequenceId.split(" ");
+        for (String number : numbersArray) {
+            try {
+                long value = Long.parseLong(number);
+                idOrder.add(value);
+            } catch (NumberFormatException e) {
+                // Handle parsing errors if necessary
+            }
+        }
+        orderList = new ArrayList<>();
         reference.addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -59,6 +69,7 @@ public class FragmentStatisticOrderUser extends Fragment {
                     String totalCost = itemSnapshot.child("Total Cost").getValue(String.class);
                     String date = itemSnapshot.child("Date").getValue(String.class);
                     String status = itemSnapshot.child("Status").getValue(String.class);
+                    Long id = itemSnapshot.child("id").getValue(Long.class);
                     Order order = new Order();
                     order.setmName(name);
                     order.setmCity(city);
@@ -67,6 +78,7 @@ public class FragmentStatisticOrderUser extends Fragment {
                     order.setmTotalCost(totalCost);
                     order.setDateCreate(date);
                     order.setStatus(status);
+                    order.setId(id);
                     order.setmItems(new ArrayList<>());
                     for (DataSnapshot dataSnapshot : itemSnapshot.child("drinks").getChildren()) {
                         String nameItem = dataSnapshot.child("name").getValue(String.class);
@@ -82,9 +94,25 @@ public class FragmentStatisticOrderUser extends Fragment {
                     orderList.add(order);
                 }
                 Collections.reverse(orderList);
-                mOrderAdapter = new OrderAdapter(orderList);
-                // Set the RecyclerView adapter to be the OrderAdapter
-                mRecyclerView.setAdapter(mOrderAdapter);
+                List<Order> tmp = new ArrayList<>();
+                if (idOrder.size() > 0) {
+                    for (Long id : idOrder) {
+                        for (Order order: orderList) {
+                            if (order.getId().longValue() == id.longValue()) {
+                                tmp.add(order);
+                                break;
+                            }
+                        }
+                    }
+                    mOrderAdapter = new OrderAdapter(tmp);
+                    // Set the RecyclerView adapter to be the OrderAdapter
+                    mRecyclerView.setAdapter(mOrderAdapter);
+                } else {
+                    mOrderAdapter = new OrderAdapter(orderList);
+                    // Set the RecyclerView adapter to be the OrderAdapter
+                    mRecyclerView.setAdapter(mOrderAdapter);
+                }
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -92,12 +120,7 @@ public class FragmentStatisticOrderUser extends Fragment {
             }
         });
 
-
-
-
         // Create an instance of the OrderAdapter and pass in the list of orders
-
-
         return view;
     }
 }

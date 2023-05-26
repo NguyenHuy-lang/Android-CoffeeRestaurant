@@ -21,8 +21,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mycoffee.adapter.ItemListAdapter;
+import com.example.mycoffee.adapter.OrderAdapter;
 import com.example.mycoffee.model.Item;
+import com.example.mycoffee.model.Order;
 import com.example.mycoffee.model.User;
+import com.example.mycoffee.utils.NotificationUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +36,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -84,6 +88,7 @@ public class ShopActivity extends AppCompatActivity implements ItemListAdapter.I
         if(itemsInCartList == null) {
             itemsInCartList = new ArrayList<Item>();
         }
+
         reference.addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -175,7 +180,65 @@ public class ShopActivity extends AppCompatActivity implements ItemListAdapter.I
                 startActivity(i);
             }
         });
+        List<Order> orderList = new ArrayList<>();
+        reference.addListenerForSingleValueEvent(new ValueEventListener(){
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot itemSnapshot : snapshot.child("orders").child(user.getPhone()).getChildren()) {
+                    // Retrieve the name, picture ID, and price for this item
+                    String city = itemSnapshot.child("City").getValue(String.class);
+                    String name = itemSnapshot.child("Name").getValue(String.class);
+                    String paymentMethod = itemSnapshot.child("Payment method").getValue(String.class);
+                    String phone = itemSnapshot.child("Phone").getValue(String.class);
+                    String totalCost = itemSnapshot.child("Total Cost").getValue(String.class);
+                    String date = itemSnapshot.child("Date").getValue(String.class);
+                    String status = itemSnapshot.child("Status").getValue(String.class);
+                    boolean notify = itemSnapshot.child("notify").getValue(boolean.class);
+                    Long id = itemSnapshot.child("id").getValue(Long.class);
+                    Order order = new Order();
+                    order.setmName(name);
+                    order.setmCity(city);
+                    order.setmPhone(phone);
+                    order.setmPaymentMethod(paymentMethod);
+                    order.setmTotalCost(totalCost);
+                    order.setDateCreate(date);
+                    order.setStatus(status);
+                    order.setmItems(new ArrayList<>());
+                    order.setNotify(notify);
+                    order.setId(id);
+                    for (DataSnapshot dataSnapshot : itemSnapshot.child("drinks").getChildren()) {
+                        String nameItem = dataSnapshot.child("name").getValue(String.class);
+                        Integer price = dataSnapshot.child("price").getValue(Integer.class);
+                        Long quantity = dataSnapshot.child("quantity").getValue(Long.class);
+                        Item item = new Item();
+                        item.setName(nameItem);
+                        item.setPrice(price);
+                        item.setTotalInCart(Math.toIntExact(quantity));
+                        item.setPicId(dataSnapshot.child("image").getValue(String.class));
+                        order.getItems().add(item);
+                    }
+                    orderList.add(order);
 
+                }
+                List<Long> listOrderUpdate = new ArrayList<>();
+                String sequenceId = "";
+                for (Order order1 : orderList) {
+                    if (order1.isNotify()) {
+                        listOrderUpdate.add(order1.getId());
+                        sequenceId += order1.getId() + " ";
+                    }
+                }
+
+                NotificationUtils.showNotification(getApplicationContext(),
+                        "Order",
+                        "Order " + sequenceId + " already admin update ",
+                        WelcomeActivity.class, user, sequenceId);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 

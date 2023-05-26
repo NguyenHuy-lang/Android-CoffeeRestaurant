@@ -34,20 +34,23 @@ public class WelcomeActivity extends AppCompatActivity {
                 new MyViewPagerAdapter
                         (getSupportFragmentManager(),getLifecycle());
         User user = (User) getIntent().getSerializableExtra("object_user");
+        String sequenceID = (String) getIntent().getExtras().get("order_ids");
         FragmentUpdateInforUser adsFragment = new FragmentUpdateInforUser();
         Bundle adsBundle = new Bundle();
         adsBundle.putSerializable("object_user", user);
+
         adsFragment.setArguments(adsBundle);
 
         FragmentStatisticOrderUser ads1Fragment =
                 new FragmentStatisticOrderUser();
         Bundle ads1Bundle = new Bundle();
         ads1Bundle.putSerializable("object_user", user);
+        ads1Bundle.putCharSequence("order_ids", sequenceID);
         ads1Fragment.setArguments(ads1Bundle);
 
 
-        myViewPagerAdapter.addFragment(adsFragment);
         myViewPagerAdapter.addFragment(ads1Fragment);
+        myViewPagerAdapter.addFragment(adsFragment);
 
         viewPager2.setAdapter(myViewPagerAdapter);
 
@@ -59,6 +62,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     case R.id.menu_item_user_infor:
                         bundle = new Bundle();
                         bundle.putSerializable("object_user", user);
+                        bundle.putSerializable("order_ids", sequenceID);
                         FragmentUpdateInforUser adsFragment = new FragmentUpdateInforUser();
                         adsFragment.setArguments(bundle);
                         viewPager2.setCurrentItem(0,false);
@@ -66,6 +70,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     case R.id.menu_item_user_order:
                         bundle = new Bundle();
                         bundle.putSerializable("object_user", user);
+                        bundle.putSerializable("order_ids", sequenceID);
                         FragmentStatisticOrderUser adsFragment1 = new FragmentStatisticOrderUser();
                         adsFragment1.setArguments(bundle);
                         viewPager2.setCurrentItem(1, false);
