@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:orientation="vertical"
-    android:background="#2196F3">
+    android:background="#8FD392">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageUser"

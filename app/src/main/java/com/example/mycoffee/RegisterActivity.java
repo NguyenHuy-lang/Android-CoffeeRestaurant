@@ -15,20 +15,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
-    FirebaseAuth auth;
     User user;
     EditText name, email, password,confirmpass,phonenum;
-    DatabaseReference reference= FirebaseDatabase.getInstance("https://ecomdb-273f5-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("u_should_buy_db");
+    DatabaseReference reference= FirebaseDatabase.getInstance("https://amplified-coder-384315-default-rtdb.firebaseio.com/").getReference("my_shop");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        auth = FirebaseAuth.getInstance();
         name = findViewById(R.id.eName);
         email = findViewById(R.id.eEmail);
         phonenum = findViewById(R.id.ePhone);
@@ -58,8 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this,"Please enter password:",Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!Pattern.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?\\d)(?=.*?[#?!@$%^&*-]).{8,}$",pass) ){
-            Toast.makeText(this,"Password must have minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",Toast.LENGTH_SHORT).show();
+        if (pass.length() < 8){
+            Toast.makeText(this,"Password must have minimum eight character",Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(confirmpassword)){
@@ -70,51 +72,30 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this,"Confirm Password does not match",Toast.LENGTH_SHORT).show();
             return;
         }
+        reference.child("users_info").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(phone)){
+                    Toast.makeText(RegisterActivity.this,"Phonenumber is already registered",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    reference.child("users_info").child(phone).child("fullname").setValue(userName);
+                    reference.child("users_info").child(phone).child("email").setValue(mail);
+                    reference.child("users_info").child(phone).child("password").setValue(pass);
+                    reference.child("users_info").child(phone).child("phone").setValue(phone);
+                    reference.child("users_info").child(phone).child("role").setValue("customer");
+                    Toast.makeText(RegisterActivity.this,"Registered Successfully.",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                }
+            }
 
-        auth.createUserWithEmailAndPassword(mail,pass)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            saveUserToFirebase(userName,mail,phone);
-                            Toast.makeText(RegisterActivity.this,"Registered Successfully.",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
-                        } else {
-                            Toast.makeText(RegisterActivity.this, "Register failed. Please try again later.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-//        reference.child("users_info").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.hasChild(phone)){
-//                    Toast.makeText(RegisterActivity.this,"Phonenumber is already registered",Toast.LENGTH_SHORT).show();
-//                }
-//                else {
-//                    reference.child("users_info").child(phone).child("fullname").setValue(userName);
-//                    reference.child("users_info").child(phone).child("email").setValue(mail);
-//                    reference.child("users_info").child(phone).child("password").setValue(pass);
-//                    reference.child("users_info").child(phone).child("phone").setValue(phone);
-//                    Toast.makeText(RegisterActivity.this,"Registered Successfully.",Toast.LENGTH_SHORT).show();
-//                    startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     public void signin(View view){
         startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
-    }
-    private void saveUserToFirebase(String username, String email, String phonen) {
-        DatabaseReference usersRef = reference.child("users_info");
-        String userId = auth.getCurrentUser().getUid();
-
-        user = new User(userId, email, phonen, username);
-        usersRef.child(userId).setValue(user);
-
     }
 }

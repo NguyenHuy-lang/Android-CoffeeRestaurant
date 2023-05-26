@@ -31,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 public class FragmentUpdateInforUser extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -43,6 +44,7 @@ public class FragmentUpdateInforUser extends Fragment {
     EditText editFullName;
     EditText editEmail;
     EditText editPassword;
+    Picasso picasso = Picasso.get();
     private DatabaseReference reference= FirebaseDatabase.
             getInstance("https://amplified-coder-384315-default-rtdb.firebaseio.com/").
             getReference("my_shop");
@@ -65,7 +67,9 @@ public class FragmentUpdateInforUser extends Fragment {
         editFullName.setText(user.getFullname());
         editEmail.setText(user.getEmail());
         editPassword.setText(user.getPassword());
-
+        if(user.getImage() != null) {
+            picasso.load(user.getImage()).into(selectedImage);
+        }
 
 
         // Initialize Firebase Storage
@@ -178,6 +182,7 @@ public class FragmentUpdateInforUser extends Fragment {
                         public void onSuccess(Uri uri) {
                             String imageUrl = uri.toString();
                             urlAvatar = imageUrl;
+                            user.setImage(imageUrl);
                             Log.d("FragmentAds", "Image URL: " + imageUrl);
 
                             // You can now update the user's avatar URL in your Firebase Realtime Database or Firestore database
