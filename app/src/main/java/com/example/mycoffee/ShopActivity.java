@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,8 @@ public class ShopActivity extends AppCompatActivity implements ItemListAdapter.I
     TextView phoneLabel,usernameLabel;
     private Bundle bundle;
     private User user;
+    Button search;
+    EditText nameProductSearch;
     CircleImageView imageUser;
     DatabaseReference reference= FirebaseDatabase.
             getInstance("https://amplified-coder-384315-default-rtdb.firebaseio.com/").
@@ -65,6 +68,8 @@ public class ShopActivity extends AppCompatActivity implements ItemListAdapter.I
         phoneLabel = header.findViewById(R.id.phoneLabel);
         usernameLabel =  header.findViewById(R.id.nameLabel);
         imageUser = header.findViewById(R.id.imageUser);
+        search = findViewById(R.id.btn_search_product);
+        nameProductSearch = findViewById(R.id.edit_name_product_search);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("P COFFEE ");
         toolbar.setSubtitle("Học viện công nghệ bưu chính viễn thông");
@@ -107,7 +112,34 @@ public class ShopActivity extends AppCompatActivity implements ItemListAdapter.I
             }
         });
 
+        search.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View view) {
+
+                String name = nameProductSearch.getText().toString();
+                if(name != null) {
+                    System.out.println("name      " + name);
+                    List<Item> listItemSearchByName = new ArrayList<>();
+                    for (Item item : itemList) {
+                        if (item.getName().contains(name)) {
+                            listItemSearchByName.add(item);
+                        }
+                    }
+                    RecyclerView recyclerView =  findViewById(R.id.recycler_view_menu);
+                    recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+                    itemListAdapter = new ItemListAdapter(ShopActivity.this,listItemSearchByName, ShopActivity.this);
+                    itemListAdapter.setData(listItemSearchByName);
+                    recyclerView.setAdapter(itemListAdapter);
+                } else {
+                    RecyclerView recyclerView =  findViewById(R.id.recycler_view_menu);
+                    recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+                    itemListAdapter = new ItemListAdapter(ShopActivity.this,itemList, ShopActivity.this);
+                    itemListAdapter.setData(itemList);
+                    recyclerView.setAdapter(itemListAdapter);
+                }
+            }
+        });
 
         setSupportActionBar(toolbar);
 
@@ -143,6 +175,7 @@ public class ShopActivity extends AppCompatActivity implements ItemListAdapter.I
                 startActivity(i);
             }
         });
+
 
     }
 
