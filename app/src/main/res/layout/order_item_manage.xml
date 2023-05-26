@@ -1,187 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:background="@color/white"
-    android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Address: "
-            android:textStyle="bold"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/teal_700" />
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:id="@+id/city_text_view_manage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="City: "
-            android:textStyle="bold"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/colorAccent" />
-    </LinearLayout>
+    android:layout_margin="15dp"
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Name Customer : "
-            android:textStyle="bold"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/teal_700" />
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:id="@+id/name_text_view_manage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Name Customer : "
-            android:textStyle="bold"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/colorAccent" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Payment Method: "
-            android:textStyle="bold"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/teal_700" />
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:id="@+id/payment_method_text_view_manage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Payment Method: "
-            android:textStyle="bold"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/colorAccent" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Phone: "
-            android:textStyle="bold"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/teal_700" />
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:id="@+id/phone_text_view_manage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Phone: "
-            android:textStyle="bold"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/colorAccent" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Date: "
-            android:textStyle="bold"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/teal_700" />
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:id="@+id/date_text_view_manage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Date: "
-            android:textStyle="bold"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/colorAccent" />
-
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/item_recycler_view_manage"
+    <androidx.cardview.widget.CardView android:id="@+id/cardView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Total Cost: "
-            android:textStyle="bold"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/teal_700" />
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:id="@+id/total_cost_text_view_manage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Total Cost: "
-            android:textStyle="bold"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/colorAccent" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:text="Status"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/teal_700"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        </TextView>
-        <TextView
-            android:id="@+id/order_manage_status_text_view"
-            android:textSize="20dp"
-            android:layout_marginLeft="10dp"
-            android:text="status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        </TextView>
-
-        <Spinner
-            android:layout_marginLeft="10dp"
-            android:id="@+id/spinner_manage_update_order_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/spinner_items"
-
-            />
-    </LinearLayout>
-    <Button
-        android:id="@+id/update_order_manage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="5dp"
+        android:layout_margin="8dp"
         >
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Address: "
+                    android:textStyle="bold"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/teal_700" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/city_text_view_manage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="City: "
+                    android:textStyle="bold"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/colorAccent" />
+            </LinearLayout>
 
-    </Button>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name Customer : "
+                    android:textStyle="bold"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/teal_700" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/name_text_view_manage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name Customer : "
+                    android:textStyle="bold"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/colorAccent" />
+            </LinearLayout>
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Payment Method: "
+                    android:textStyle="bold"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/teal_700" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/payment_method_text_view_manage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Payment Method: "
+                    android:textStyle="bold"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/colorAccent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Phone: "
+                    android:textStyle="bold"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/teal_700" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/phone_text_view_manage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Phone: "
+                    android:textStyle="bold"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/colorAccent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Date: "
+                    android:textStyle="bold"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/teal_700" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/date_text_view_manage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Date: "
+                    android:textStyle="bold"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/colorAccent" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/item_recycler_view_manage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Total Cost: "
+                    android:textStyle="bold"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/teal_700" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/total_cost_text_view_manage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Total Cost: "
+                    android:textStyle="bold"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/colorAccent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:text="Status"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/teal_700"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+                <TextView
+                    android:id="@+id/order_manage_status_text_view"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+
+                <Spinner
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/spinner_manage_update_order_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/spinner_items"
+
+                    />
+            </LinearLayout>
+            <Button
+                android:id="@+id/update_order_manage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update"
+                >
+
+            </Button>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout >

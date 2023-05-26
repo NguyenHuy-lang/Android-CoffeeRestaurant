@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bggg"
+    android:background="#EAF4F4"
     tools:context=".ShopActivity"
     android:fitsSystemWindows="true"
     android:id="@+id/drawer_layout_product_detail">

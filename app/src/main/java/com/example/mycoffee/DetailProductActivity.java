@@ -108,7 +108,7 @@ public class DetailProductActivity extends AppCompatActivity  implements Navigat
         picasso.load(user.getImage()).into(circleUserImageView);
 
         productNameTextView.setText(item.getName());
-        productPriceTextView.setText(item.getPrice() + "");
+        productPriceTextView.setText(item.getPrice() + "$");
         commentRecyclerView = findViewById(R.id.comments_recycler_view);
         contentCommentEditText = findViewById(R.id.comment_edit_text);
         commentRating = findViewById(R.id.user_rating);

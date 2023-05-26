@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="#EAF4F4"
     tools:context=".WelcomeActivity"
     android:fitsSystemWindows="true"
     android:id="@+id/drawer_layout">
@@ -38,6 +38,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/ic_action_menu" />
         <Spinner
+            android:layout_margin="15dp"
             android:id="@+id/spinner_manage_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

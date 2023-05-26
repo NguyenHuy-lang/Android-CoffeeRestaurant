@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
-    android:background="@drawable/bggg"
+    android:background="#EAF4F4"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
     tools:context=".CartActivity">
@@ -48,7 +48,7 @@
                 app:layout_constraintEnd_toEndOf="@id/toolbar_cart"
                 app:layout_constraintTop_toBottomOf="@id/toolbar_cart"
                 android:layout_margin="10dp"
-                android:text="Thông tin khách hàng vào giỏ hàng"
+                android:text="Please enter information personal"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
@@ -85,11 +85,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spinerPaymentmethod"
                 android:layout_margin="10dp"
-                android:text="Total items in cart"
+                android:text="List product of you"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginLeft="80dp"
                 android:id="@+id/cartItemsRecyclerView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,51 +99,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvTotalItems"
                 />
 
-            <TextView android:id="@+id/tvSubtotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cartItemsRecyclerView"
-                android:layout_margin="10dp"
-                android:text="Sub total"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
-            <TextView android:id="@+id/tvSubtotalAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cartItemsRecyclerView"
-                android:layout_margin="10dp"
-                android:text="$0.0"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
-            <TextView android:id="@+id/tvDeliveryCharge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSubtotal"
-                android:layout_margin="10dp"
-                android:text="Phí vận chuyển"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
-            <TextView android:id="@+id/tvDeliveryChargeAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSubtotal"
-                android:layout_margin="10dp"
-                android:text="$0.0"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
             <TextView android:id="@+id/tvTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDeliveryCharge"
+                app:layout_constraintTop_toBottomOf="@+id/cartItemsRecyclerView"
                 android:layout_margin="10dp"
                 android:text="Thành tiền"
                 android:textSize="18sp"
@@ -152,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDeliveryCharge"
+                app:layout_constraintTop_toBottomOf="@+id/cartItemsRecyclerView"
                 android:layout_margin="10dp"
                 android:text="$0.0"
                 android:textSize="18sp"

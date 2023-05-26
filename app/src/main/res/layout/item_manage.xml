@@ -1,55 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="horizontal"
-    android:layout_margin="10dp"
     android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/image_item_manage"
-        android:layout_width="80dp"
-        android:src="@drawable/ic_home"
-        android:layout_height="80dp">
-    </ImageView>
-    <LinearLayout
-        android:layout_marginLeft="5dp"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/name_item_manage_text_view"
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name product:"
-            ></TextView>
-        <TextView
-            android:id="@+id/price_item_manage_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Price: ">
 
-        </TextView>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView android:id="@+id/cardView2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="5dp"
+        android:layout_margin="8dp"
         >
-        <Button
-            android:id="@+id/delete_manage_button"
-            android:layout_margin="1dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text="Delete"></Button>
-        <Button
-            android:id="@+id/edit_manage_button"
-            android:layout_margin="1dp"
-            android:layout_width="wrap_content"
-            android:textSize="10dp"
-            android:text="Edit"
-            android:layout_height="wrap_content"></Button>
-    </LinearLayout>
-</LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/image_item_manage"
+                android:layout_width="80dp"
+                android:src="@drawable/ic_home"
+                android:layout_height="80dp">
+            </ImageView>
+            <LinearLayout
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/name_item_manage_text_view"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/purple_500"
+                    android:text="Name product:"
+                    ></TextView>
+                <TextView
+                    android:id="@+id/price_item_manage_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/purple_500"
+                    android:text="Price: ">
+
+                </TextView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                >
+                <Button
+                    android:id="@+id/delete_manage_button"
+                    android:layout_margin="1dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10dp"
+                    android:text="Delete"></Button>
+                <Button
+                    android:id="@+id/edit_manage_button"
+                    android:layout_margin="1dp"
+                    android:layout_width="wrap_content"
+                    android:textSize="10dp"
+                    android:text="Edit"
+                    android:layout_height="wrap_content"></Button>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout >

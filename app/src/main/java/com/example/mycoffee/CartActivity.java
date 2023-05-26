@@ -21,7 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mycoffee.adapter.PlaceOrderAdapter;
+import com.example.mycoffee.adapter.ItemInCartAdapter;
 import com.example.mycoffee.model.Item;
 import com.example.mycoffee.model.User;
 import com.google.android.material.navigation.NavigationView;
@@ -55,11 +55,10 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private TextView phoneLabel, usernameLabel;
     private View header;
-    private float delivery_charge;
     private RecyclerView cartItemsRecyclerView;
-    private PlaceOrderAdapter placeYourOrderAdapter;
+    private ItemInCartAdapter itemInCartAdapter;
     private EditText inputAddress;
-    private TextView tvSubtotalAmount, totalAmount, tvDeliveryChargeAmount, buttonOrder;
+    private TextView totalAmount, buttonOrder;
     private  Bundle bundle = new Bundle();
     private List<Item> itemsInCartList;
     private User user;
@@ -99,9 +98,8 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
         usernameLabel = header.findViewById(R.id.nameLabel);
         imageUser = header.findViewById(R.id.imageUser);
         inputAddress = findViewById(R.id.inputAddress);
-        tvSubtotalAmount = findViewById(R.id.tvSubtotalAmount);
+
         totalAmount = findViewById(R.id.tvTotalAmount);
-        tvDeliveryChargeAmount = findViewById(R.id.tvDeliveryChargeAmount);
         spinnerPayment = findViewById(R.id.spinerPaymentmethod);
         spinnerPayment.setAdapter(new ArrayAdapter<String>(this, R.layout.item_paymentmethod,
                 getResources().getStringArray(R.array.method)));
@@ -259,8 +257,8 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
 
     private void initRecyclerView(List<Item> itemList) {
         cartItemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        placeYourOrderAdapter = new PlaceOrderAdapter(itemList);
-        cartItemsRecyclerView.setAdapter(placeYourOrderAdapter);
+        itemInCartAdapter = new ItemInCartAdapter(itemList);
+        cartItemsRecyclerView.setAdapter(itemInCartAdapter);
     }
 
     @Override
@@ -324,26 +322,9 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
 
     private void calculateTotalAmount(List<Item> itemList) {
         float subTotalAmount = 0f;
-        delivery_charge = 0f;
 
         for (Item m : itemList) {
             subTotalAmount += m.getPrice() * m.getTotalInCart();
-        }
-
-        tvSubtotalAmount.setText(String.format("%.2f", subTotalAmount) + "đ");
-
-        if (subTotalAmount < 300) {
-            delivery_charge = 20.00f;
-            tvDeliveryChargeAmount.setText(String.format("%.2f", delivery_charge) + "$");
-            subTotalAmount += delivery_charge;
-        } else if (subTotalAmount < 500) {
-            delivery_charge = 10.00f;
-            tvDeliveryChargeAmount.setText(String.format("%.2f", delivery_charge) + "$");
-            subTotalAmount += delivery_charge;
-        } else {
-            delivery_charge = 0f;
-            tvDeliveryChargeAmount.setText(String.format("%.2f", delivery_charge) + "$");
-            subTotalAmount += delivery_charge;
         }
         totalAmount.setText(String.format("%.2f", subTotalAmount) + "$");
     }

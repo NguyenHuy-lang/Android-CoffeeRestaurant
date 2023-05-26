@@ -84,7 +84,7 @@ public class ManageActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ManageActivity.this,HomeActivity.class);
+                Intent intent = new Intent(ManageActivity.this,LoginActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
