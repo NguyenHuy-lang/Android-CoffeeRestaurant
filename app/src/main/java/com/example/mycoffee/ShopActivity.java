@@ -229,10 +229,12 @@ public class ShopActivity extends AppCompatActivity implements ItemListAdapter.I
                     }
                 }
 
-                NotificationUtils.showNotification(getApplicationContext(),
-                        "Order",
-                        "Order " + sequenceId + " already admin update ",
-                        WelcomeActivity.class, user, sequenceId);
+                if(sequenceId.length() > 0) {
+                    NotificationUtils.showNotification(getApplicationContext(),
+                            "Order",
+                            "Order " + sequenceId + " already admin update ",
+                            WelcomeActivity.class, user, sequenceId);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

@@ -42,6 +42,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.phoneTextView.setText(order.getPhone());
         holder.totalCostTextView.setText(order.getTotalCost());
         holder.dateTextView.setText(order.getDateCreate());
+        holder.statusTextView.setText(order.getStatus());
+        holder.idTextView.setText(String.valueOf(order.getId()));
         // Notify
         holder.productRecyclerView.setAdapter(new ItemAdapter(order.getItems()));
     }
@@ -58,6 +60,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         public TextView phoneTextView;
         public TextView totalCostTextView;
         public TextView dateTextView;
+        public TextView statusTextView;
+        public TextView idTextView;
         public RecyclerView productRecyclerView;
 
         public OrderViewHolder(View itemView) {
@@ -69,6 +73,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             totalCostTextView = itemView.findViewById(R.id.total_cost_text_view);
             productRecyclerView = itemView.findViewById(R.id.item_recycler_view);
             dateTextView = itemView.findViewById(R.id.date_text_view);
+            statusTextView = itemView.findViewById(R.id.status_text_view);
+            idTextView = itemView.findViewById(R.id.id_text_view);
             productRecyclerView.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
         }
     }

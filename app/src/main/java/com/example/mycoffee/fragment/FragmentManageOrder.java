@@ -186,6 +186,10 @@ public class FragmentManageOrder extends Fragment implements OrderManageAdapter.
                             .child(order.getPhone())
                             .child(String.valueOf(order.getId()))
                             .child("Status").setValue(order.getStatus());
+                reference.child("orders")
+                        .child(order.getPhone())
+                        .child(String.valueOf(order.getId()))
+                        .child("notify").setValue(true);
                 Toast.makeText(getContext(), "Update Order to " + order.getStatus() + " Success!", Toast.LENGTH_LONG).show();
                 for (Order order1 : getAllOrder) {
                     if (order1.getDateCreate().equals(order.getDateCreate())) {

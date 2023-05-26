@@ -47,13 +47,15 @@ public class FragmentStatisticOrderUser extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         User user = (User) getArguments().get("object_user");
         String sequenceId = (String) getArguments().get("order_ids");
-        String[] numbersArray = sequenceId.split(" ");
-        for (String number : numbersArray) {
-            try {
-                long value = Long.parseLong(number);
-                idOrder.add(value);
-            } catch (NumberFormatException e) {
-                // Handle parsing errors if necessary
+        if(sequenceId != null) {
+            String[] numbersArray = sequenceId.split(" ");
+            for (String number : numbersArray) {
+                try {
+                    long value = Long.parseLong(number);
+                    idOrder.add(value);
+                } catch (NumberFormatException e) {
+                    // Handle parsing errors if necessary
+                }
             }
         }
         orderList = new ArrayList<>();
@@ -92,6 +94,9 @@ public class FragmentStatisticOrderUser extends Fragment {
                         order.getItems().add(item);
                     }
                     orderList.add(order);
+                }
+                for (Long id : idOrder) {
+                    reference.child("orders").child(user.getPhone().toString()).child(String.valueOf(id)).child("notify").setValue(false);
                 }
                 Collections.reverse(orderList);
                 List<Order> tmp = new ArrayList<>();
