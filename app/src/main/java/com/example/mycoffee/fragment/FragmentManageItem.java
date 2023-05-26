@@ -20,10 +20,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mycoffee.R;
+import com.example.mycoffee.ShopActivity;
+import com.example.mycoffee.adapter.ItemListAdapter;
 import com.example.mycoffee.adapter.ItemManageAdapter;
 import com.example.mycoffee.model.Item;
 import com.example.mycoffee.model.User;
@@ -67,6 +70,8 @@ public class FragmentManageItem extends Fragment implements ItemManageAdapter.It
     private String imageUrlUpload = null;
     private String nameItem = null;
     private View myView;
+    private Button btnSearchItem;
+    private EditText findItemByNameEditText;
 
     DatabaseReference reference= FirebaseDatabase.
             getInstance("https://amplified-coder-384315-default-rtdb.firebaseio.com/").
@@ -75,6 +80,8 @@ public class FragmentManageItem extends Fragment implements ItemManageAdapter.It
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.manage_item_fragment, container, false);
         myView = view;
+        btnSearchItem = view.findViewById(R.id.btn_search_product_admin);
+        findItemByNameEditText = view.findViewById(R.id.edit_name_product_search_admin);
         editNameItem = view.findViewById(R.id.editNameItem);
         editImageItem = view.findViewById(R.id.editImageItem);
         editPriceItem = view.findViewById(R.id.editPriceItem);
@@ -201,7 +208,6 @@ public class FragmentManageItem extends Fragment implements ItemManageAdapter.It
                             editNameItem.setText("");
                             editPriceItem.setText("");
                             Toast.makeText(getContext(), "Success update", Toast.LENGTH_LONG).show();
-
                         }
 
                         @Override
@@ -232,8 +238,6 @@ public class FragmentManageItem extends Fragment implements ItemManageAdapter.It
                                 editNameItem.setText("");
                                 editPriceItem.setText("");
                                 Toast.makeText(getContext(), "Success update", Toast.LENGTH_LONG).show();
-
-
                             }
 
                             @Override
@@ -256,6 +260,31 @@ public class FragmentManageItem extends Fragment implements ItemManageAdapter.It
                     nameItem = editNameItem.getText().toString();
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(intent, PICK_IMAGE_REQUEST);
+                }
+            }
+        });
+
+        btnSearchItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name = findItemByNameEditText.getText().toString();
+                if(name != null) {
+                    System.out.println("name      " + name);
+                    List<Item> listItemSearchByName = new ArrayList<>();
+                    for (Item item : itemList) {
+                        if (item.getName().contains(name)) {
+                            listItemSearchByName.add(item);
+                        }
+                    }
+                    itemManageAdapter = new ItemManageAdapter(listItemSearchByName, getContext());
+                    itemManageAdapter.setItemListener(FragmentManageItem.this);
+                    // Set the RecyclerView adapter to be the OrderAdapter
+                    recyclerView.setAdapter(itemManageAdapter);
+                } else {
+                    itemManageAdapter = new ItemManageAdapter(itemList, getContext());
+                    itemManageAdapter.setItemListener(FragmentManageItem.this);
+                    // Set the RecyclerView adapter to be the OrderAdapter
+                    recyclerView.setAdapter(itemManageAdapter);
                 }
             }
         });

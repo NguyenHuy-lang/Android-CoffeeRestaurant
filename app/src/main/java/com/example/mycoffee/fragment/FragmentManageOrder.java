@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -35,7 +36,9 @@ public class FragmentManageOrder extends Fragment implements OrderManageAdapter.
     private Bundle bundle = new Bundle();
     private Spinner spinner;
     private Spinner updateStatusOrder;
-    public User user;
+    private User user;
+    private Button btnSearch;
+    private EditText editPhoneSearchOrder;
     private Button updateStatusOrderButton;
     DatabaseReference reference= FirebaseDatabase.
             getInstance("https://amplified-coder-384315-default-rtdb.firebaseio.com/").
@@ -50,6 +53,8 @@ public class FragmentManageOrder extends Fragment implements OrderManageAdapter.
 
         mRecyclerView = view.findViewById(R.id.order_manage);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        btnSearch = view.findViewById(R.id.btn_search_order_admin);
+        editPhoneSearchOrder = view.findViewById(R.id.edit_phone_search_admin);
         user = (User) getArguments().get("object_user");
         List<Order> orderList = new ArrayList<>();
         spinner = view.findViewById(R.id.spinner_manage_order);
@@ -58,41 +63,43 @@ public class FragmentManageOrder extends Fragment implements OrderManageAdapter.
         reference.addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot itemSnapshot : snapshot.child("orders").child(user.getPhone()).getChildren()) {
-                    // Retrieve the name, picture ID, and price for this item
-                    String city = itemSnapshot.child("City").getValue(String.class);
-                    String name = itemSnapshot.child("Name").getValue(String.class);
-                    String paymentMethod = itemSnapshot.child("Payment method").getValue(String.class);
-                    String phone = itemSnapshot.child("Phone").getValue(String.class);
-                    String totalCost = itemSnapshot.child("Total Cost").getValue(String.class);
-                    String date = itemSnapshot.child("Date").getValue(String.class);
-                    String status = itemSnapshot.child("Status").getValue(String.class);
-                    Long id = itemSnapshot.child("id").getValue(Long.class);
+                for (DataSnapshot itemSnapshot : snapshot.child("orders").getChildren()) {
+                    for (DataSnapshot childItemSnapshot : itemSnapshot.getChildren()) {
+                        // Retrieve the name, picture ID, and price for this item
+                        String city = childItemSnapshot.child("City").getValue(String.class);
+                        String name = childItemSnapshot.child("Name").getValue(String.class);
+                        String paymentMethod = childItemSnapshot.child("Payment method").getValue(String.class);
+                        String phone = childItemSnapshot.child("Phone").getValue(String.class);
+                        String totalCost = childItemSnapshot.child("Total Cost").getValue(String.class);
+                        String date = childItemSnapshot.child("Date").getValue(String.class);
+                        String status = childItemSnapshot.child("Status").getValue(String.class);
+                        Long id = childItemSnapshot.child("id").getValue(Long.class);
 
-                    Order order = new Order();
-                    order.setmName(name);
-                    order.setmCity(city);
-                    order.setmPhone(phone);
-                    order.setmPaymentMethod(paymentMethod);
-                    order.setmTotalCost(totalCost);
-                    order.setDateCreate(date);
-                    order.setStatus(status);
-                    order.setId(id);
+                        Order order = new Order();
+                        order.setmName(name);
+                        order.setmCity(city);
+                        order.setmPhone(phone);
+                        order.setmPaymentMethod(paymentMethod);
+                        order.setmTotalCost(totalCost);
+                        order.setDateCreate(date);
+                        order.setStatus(status);
+                        order.setId(id);
 
-                    order.setmItems(new ArrayList<>());
-                    for (DataSnapshot dataSnapshot : itemSnapshot.child("drinks").getChildren()) {
-                        String nameItem = dataSnapshot.child("name").getValue(String.class);
-                        Integer price = dataSnapshot.child("price").getValue(Integer.class);
-                        Long quantity = dataSnapshot.child("quantity").getValue(Long.class);
-                        Item item = new Item();
-                        item.setName(nameItem);
-                        item.setPrice(price);
-                        item.setTotalInCart(Math.toIntExact(quantity));
-                        item.setPicId(dataSnapshot.child("image").getValue(String.class));
-                        order.getItems().add(item);
+                        order.setmItems(new ArrayList<>());
+                        for (DataSnapshot dataSnapshot : childItemSnapshot.child("drinks").getChildren()) {
+                            String nameItem = dataSnapshot.child("name").getValue(String.class);
+                            Integer price = dataSnapshot.child("price").getValue(Integer.class);
+                            Long quantity = dataSnapshot.child("quantity").getValue(Long.class);
+                            Item item = new Item();
+                            item.setName(nameItem);
+                            item.setPrice(price);
+                            item.setTotalInCart(Math.toIntExact(quantity));
+                            item.setPicId(dataSnapshot.child("image").getValue(String.class));
+                            order.getItems().add(item);
+                        }
+                        orderList.add(order);
+                        getAllOrder.add(order);
                     }
-                    orderList.add(order);
-                    getAllOrder.add(order);
                 }
                 Collections.reverse(orderList);
                 List<Order> tmp = new ArrayList<>();
@@ -137,8 +144,36 @@ public class FragmentManageOrder extends Fragment implements OrderManageAdapter.
             }
         });
         // Create an instance of the OrderAdapter and pass in the list of orders
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String phone = editPhoneSearchOrder.getText().toString();
+                if (phone != null) {
+                    List<Order> tempOrder = new ArrayList<>();
+                    for (Order order : getAllOrder) {
+                        if(order.getPhone().contains(phone)) {
+                            tempOrder.add(order);
+                        }
+                        System.out.println(order.getPhone());
+                    }
+                    mOrderAdapter = new OrderManageAdapter(tempOrder,
+                            getContext(),
+                            FragmentManageOrder.this);
 
+                    // Set the RecyclerView adapter to be the OrderAdapter
+                    mRecyclerView.setAdapter(mOrderAdapter);
 
+                } else {
+                    mOrderAdapter = new OrderManageAdapter(getAllOrder,
+                            getContext(),
+                            FragmentManageOrder.this);
+
+                    // Set the RecyclerView adapter to be the OrderAdapter
+                    mRecyclerView.setAdapter(mOrderAdapter);
+                }
+
+            }
+        });
         return view;
     }
 

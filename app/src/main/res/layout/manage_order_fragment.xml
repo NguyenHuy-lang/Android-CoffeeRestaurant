@@ -46,7 +46,31 @@
             android:entries="@array/spinner_items"
             style="@style/SpinnerStyle" />
 
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_search_order_admin"
+                android:layout_width="wrap_content"
+                android:text="Search"
+                android:textSize="15dp"
+                android:textStyle="italic"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content">
 
+            </Button>
+            <EditText
+                android:id="@+id/edit_phone_search_admin"
+                android:layout_width="match_parent"
+                android:hint="enter phone"
+                android:drawableLeft="@drawable/icons8_search_32"
+
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content">
+
+            </EditText>
+        </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/order_manage"
             android:layout_width="match_parent"

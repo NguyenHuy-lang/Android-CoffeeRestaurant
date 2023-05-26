@@ -174,8 +174,8 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
             inputAddress.setError("Please enter address ");
             return;
         }
-        final String username = usernameLabel.getText().toString();
-        final String phone = phoneLabel.getText().toString();
+        final String username = user.getFullname();
+        final String phone = user.getPhone();
         final String address = inputAddress.getText().toString();
         final String total = totalAmount.getText().toString();
         final String paymentmethod = spinnerPayment.getSelectedItem().toString();
@@ -202,7 +202,9 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
                 reference.child("orders").child(phone).child(String.valueOf(count)).child("Total Cost").setValue(total);
                 reference.child("orders").child(phone).child(String.valueOf(count)).child("Date").setValue(date);
                 reference.child("orders").child(phone).child(String.valueOf(count)).child("Status").setValue("Pending");
-
+                reference.child("orders").child(phone).child(String.valueOf(count)).child("id").setValue(count);
+                Toast.makeText(getApplicationContext(), "You have successfully placed your order, " +
+                        "your order will be approved by admin later", Toast.LENGTH_LONG).show();
 
             }
 
