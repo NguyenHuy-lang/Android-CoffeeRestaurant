@@ -89,7 +89,12 @@ public class FragmentUpdateInforUser extends Fragment {
 
             @Override
             public void onClick(View view) {
-                if(!editFullName.getText().toString().equals(user.getFullname())) {
+                if (editFullName.getText().toString() == null) {
+                    editFullName.setError("please enter full name");
+                } else if (editEmail.getText().toString() == null) {
+                    editEmail.setError("please enter email");
+                }
+                else if(!editFullName.getText().toString().equals(user.getFullname())) {
                     reference.addListenerForSingleValueEvent(new ValueEventListener(){
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -1,6 +1,11 @@
 package com.example.mycoffee;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.media.RingtoneManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -16,6 +21,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -215,43 +224,34 @@ public class CartActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         //start success activity..
-//        if (Build.VERSION.SDK_INT >= 24) {
-//            if (ContextCompat.checkSelfPermission(CartActivity.this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-//                ActivityCompat.requestPermissions(CartActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
-//            } else {
-//                String newMessenger = "Dat hang thanh cong";
-//                // Create the notification payload
-//                NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "default");
-//                builder.setSmallIcon(R.drawable.ic_notification);
-//                builder.setContentTitle(StaticConfig.NAME);
-//                builder.setContentText(newMessenger);
-//                builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-//                builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-//
-//                // Create the notification channel (required for Android Oreo and above)
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                    NotificationChannel channel = new NotificationChannel("default", "Default", NotificationManager.IMPORTANCE_DEFAULT);
-//                    NotificationManager notificationManager = getSystemService(NotificationManager.class);
-//                    notificationManager.createNotificationChannel(channel);
-//                }
-//
-//                // Send the notification
-//                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
-//                if (ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-//                    // TODO: Consider calling
-//                    //    ActivityCompat#requestPermissions
-//                    // here to request the missing permissions, and then overriding
-//                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                    //                                          int[] grantResults)
-//                    // to handle the case where the user grants the permission. See the documentation
-//                    // for ActivityCompat#requestPermissions for more details.
-//                    return;
-//                }
-//                notificationManager.notify(0, builder.build());
-//
-//
-//            }
-//        }
+        if (Build.VERSION.SDK_INT >= 24) {
+            System.out.println("runnnnnnnnnnnnnnnnnnnnnnnnng notify");
+            if (ContextCompat.checkSelfPermission(CartActivity.this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                System.out.println("runnnnnnnnnnnnnnnnnnnnnnnnng notify error ?");
+                ActivityCompat.requestPermissions(CartActivity.this, new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 101);
+
+            }
+            System.out.println("runnnnnnnnnnnnnnnnnnnnnnnnng notify");
+            String newMessenger = "Dat hang thanh cong";
+            // Create the notification payload
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "default");
+            builder.setSmallIcon(R.drawable.ic_notification);
+            builder.setContentTitle("Order ");
+            builder.setContentText(newMessenger);
+            builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+            builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+
+            // Create the notification channel (required for Android Oreo and above)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel channel = new NotificationChannel("default", "Default", NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                notificationManager.createNotificationChannel(channel);
+            }
+            // Send the notification
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+            notificationManager.notify(0, builder.build());
+        }
+
         Intent i = new Intent(CartActivity.this, ShopActivity.class);
         i.putExtras(bundle);
         startActivity(i);

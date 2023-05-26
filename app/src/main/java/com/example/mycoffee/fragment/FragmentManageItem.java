@@ -180,8 +180,13 @@ public class FragmentManageItem extends Fragment implements ItemManageAdapter.It
             @Override
             public void onClick(View view) {
                 String name = editNameItem.getText().toString();
-                Integer price = Integer.parseInt(editPriceItem.getText().toString());
+                Integer price = (editPriceItem.getText().toString() == null || editPriceItem.getText().toString().length() == 0) ? null : Integer.parseInt(editPriceItem.getText().toString());
                 if(name == null || price == null || imageUrlUpload == null) {
+                    if (name == null || name.length() == 0) {
+                        editNameItem.setError("please enter name drink");
+                    } else if (price == null) {
+                        editPriceItem.setError("please enter price drink");
+                    }
                     Toast.makeText(getActivity().getApplicationContext(), "Please fill fully information", Toast.LENGTH_LONG).show();
                 }else{
                     reference.child("Drinks").addListenerForSingleValueEvent(new ValueEventListener() {
