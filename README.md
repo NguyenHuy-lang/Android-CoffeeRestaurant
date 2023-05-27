@@ -1,4 +1,4 @@
-
+Đề tài: app bán hàng, sử dụng cơ sở dữ liệu không quan hệ realtime datebase của firebase, lưu trữ ảnh trên storage của firebase
   1. Chức năng đăng nhập, đăng ký, đăng xuất
   2. Chức năng xem danh sách mặt hàng của cửa 
   hàng
